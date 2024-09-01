@@ -57,7 +57,8 @@ public class PlantRopanApplication {
 				String hostname = localHost.getHostName();
 				String ip = localHost.getHostAddress();
 				System.out.println("Hostname: " + hostname + "--ip---" + ip);
-				openWebpage(new URI("http://" + hostname + ":" + port + "/login"));
+				System.out.println(" url -- " + "http://" + hostname + ":" + port + "/login");
+				//openWebpage(new URI("http://" + hostname + ":" + port + "/login"));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
