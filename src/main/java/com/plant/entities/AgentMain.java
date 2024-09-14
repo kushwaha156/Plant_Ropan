@@ -1,13 +1,10 @@
 package com.plant.entities;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
@@ -26,7 +23,10 @@ public class AgentMain {
 	private String emailId;
 	@Column(unique = true)
 	private String mobileNumber;
-	
+	 @Column(name = "agent_verified", nullable = true)
+	boolean AgentVerified;
+	 @Column(name = "is_active_agent", nullable = true)
+	boolean isActiveAgent;
 	private String state;
 	private String city;
 	private String address;
@@ -50,7 +50,7 @@ public class AgentMain {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public AgentMain(int agentIDPk, String firstName, String lastName,String selfiImage, String emailId, String mobileNumber,
+	public AgentMain(int agentIDPk, String firstName, String lastName,String selfiImage, String emailId, String mobileNumber, boolean AgentVerified, boolean isActiveAgent,
 			String state, String city, String address, String pincode, String latitude, String longitude,
 			String aadharImg, String aadhaarNumber, String accHolderName, String accNumber, String bankName,
 			String iFSCCode, String accMobNumber ,String BankAccPassBookImage) {
@@ -61,6 +61,8 @@ public class AgentMain {
 		this.selfiImage = selfiImage;
 		this.emailId = emailId;
 		this.mobileNumber = mobileNumber;
+		this.AgentVerified = AgentVerified;
+		this.isActiveAgent = isActiveAgent;
 		this.state = state;
 		this.city = city;
 		this.address = address;
@@ -111,6 +113,18 @@ public class AgentMain {
 	}
 	public void setMobileNumber(String mobileNumber) {
 		this.mobileNumber = mobileNumber;
+	}
+	public boolean getAgentVerified() {
+		return AgentVerified;
+	}
+	public void setAgentVerified(boolean agentVerified) {
+		AgentVerified = agentVerified;
+	}
+	public boolean isActiveAgent() {
+		return isActiveAgent;
+	}
+	public void setActiveAgent(boolean isActiveAgent) {
+		this.isActiveAgent = isActiveAgent;
 	}
 	public String getState() {
 		return state;
@@ -199,12 +213,12 @@ public class AgentMain {
 	@Override
 	public String toString() {
 		return "AgentMain [AgentIDPk=" + AgentIDPk + ", firstName=" + firstName + ", lastName=" + lastName
-				+ ", selfiImage=" + selfiImage + ", emailId=" + emailId + ", mobileNumber=" + mobileNumber + ", state="
-				+ state + ", city=" + city + ", address=" + address + ", pincode=" + pincode + ", latitude=" + latitude
+				+ ", selfiImage=" + selfiImage + ", emailId=" + emailId + ", mobileNumber=" + mobileNumber
+				+ ", AgentVerified=" + AgentVerified + ", isActiveAgent=" + isActiveAgent + ", state=" + state
+				+ ", city=" + city + ", address=" + address + ", pincode=" + pincode + ", latitude=" + latitude
 				+ ", longitude=" + longitude + ", aadharImg=" + aadharImg + ", aadhaarNumber=" + aadhaarNumber
 				+ ", accHolderName=" + accHolderName + ", accNumber=" + accNumber + ", bankName=" + bankName
 				+ ", IFSCCode=" + IFSCCode + ", AccMobNumber=" + AccMobNumber + ", BankAccPassBookImage="
 				+ BankAccPassBookImage + "]";
 	}
-	
 }

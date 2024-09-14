@@ -1,11 +1,14 @@
 package com.plant.Dao;
 
+import java.util.ArrayList;
+
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.plant.entities.AgentMain;
+import com.plant.entities.Plans;
 import com.plant.entities.user;
 
 import jakarta.transaction.Transactional;
@@ -17,6 +20,8 @@ public interface userDao extends CrudRepository<user, Integer>{
 	public user finduserNameAndPassword(@Param("username") String username , @Param("password") String password);
 	
 	public AgentMain save(AgentMain agentMain);
+	
+	public Plans save(Plans plans);
 	
 	@Query("select e FROM AgentMain e WHERE e.emailId = :emailId OR e.mobileNumber = :mobileNumber")
 	public AgentMain findEmailAndMobileAg(@Param("emailId") String emailId , @Param("mobileNumber") String mobileNumber);
@@ -51,4 +56,11 @@ public interface userDao extends CrudRepository<user, Integer>{
 	@Transactional
     @Query("UPDATE AgentMain a SET a.BankAccPassBookImage = :BankAccPassBookImage  WHERE a.AgentIDPk = :AgentIDPk")
     public void updateBankPassBookImg(@Param("BankAccPassBookImage") String BankAccPassBookImage, @Param("AgentIDPk") String AgentIDPk);
+	
+	
+	@Query("select e FROM AgentMain e where e.AgentVerified = false")
+	public ArrayList<AgentMain> getpendingVerif();
+	
+	@Query("select e FROM AgentMain e where e.AgentVerified = true")
+	public ArrayList<AgentMain> getVerified();
 }
