@@ -119,6 +119,8 @@ public class MobileLoginApiCont {
 		 	    	return ResponseEntity.ok(response);
 		 	    }
 		    }
+		    agentMain.setAgentVerified(false);
+		    agentMain.setActiveAgent(false);
 			AgentMain savedAgent = this.userdao.save(agentMain);
 			String agentID = String.valueOf(savedAgent.getAgentIDPk()); 
 			response.put("agentID",agentID );
