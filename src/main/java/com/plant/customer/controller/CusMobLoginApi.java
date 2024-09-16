@@ -55,13 +55,13 @@ public class CusMobLoginApi {
 	        boolean isOtpValid = cusOTPService.verifyOtp(mobileNumber, otp);
 
 	        if (isOtpValid) {
-	        	if(findMob!=null) {
-	        		response.put("Object", findMob);
-	        		response.put("CustomerExit", "true");
+	        	if(findMob.isEmpty()) {
+	        		response.put("CustomerExit", "false");
 	        		response.put("message", "OTP Verified Successfully");
 	        	}
 	        	else {
-	        		response.put("CustomerExit", "false");
+	        		response.put("Object", findMob);
+	        		response.put("CustomerExit", "true");
 	        		response.put("message", "OTP Verified Successfully");
 	        	}
 	            return ResponseEntity.ok(response);
