@@ -8,8 +8,8 @@ import com.plant.entities.CustomerMain;
 
 @Service
 public class CustomerService {
- @Autowired
-private CustomerDao customerDao;
+	@Autowired
+	private CustomerDao customerDao;
  public CustomerMain saveCustomerProfile(CustomerMain customerMain) {
 	return  customerDao.save(customerMain);
  }

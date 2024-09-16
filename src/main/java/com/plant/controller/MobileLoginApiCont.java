@@ -87,12 +87,12 @@ public class MobileLoginApiCont {
 			boolean isOtpValid = otpService.verifyOtp(mobileNumber, otp);
 
 			if (isOtpValid) {
-				if (findMob != null) {
-					response.put("Object", findMob);
-					response.put("AgentExit", "true");
+				if (findMob.isEmpty()) {
+					response.put("AgentExit", "false");
 					response.put("message", "OTP Verified Successfully");
 				} else {
-					response.put("AgentExit", "false");
+					response.put("Object", findMob);
+					response.put("AgentExit", "true");
 					response.put("message", "OTP Verified Successfully");
 				}
 				return ResponseEntity.ok(response);
