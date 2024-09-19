@@ -11,38 +11,34 @@ public class Plans {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int primaryKey;
-	private String plansName;
 	private String plansRs;
 	private String timeDuration;
 	private String UptoPots;
-	private String packs;
-	private String VisitsMonths;
+	private String servicesName;
+	private String planType;
+	private String planPacks;
+	private String isActive;
 	public Plans() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Plans(int primaryKey, String plansName, String plansRs, String timeDuration, String uptoPots, String packs,
-			String visitsMonths) {
+	public Plans(int primaryKey, String plansRs, String timeDuration,String planPacks, String uptoPots, String servicesName,
+			String planType, String isActive) {
 		super();
 		this.primaryKey = primaryKey;
-		this.plansName=plansName;
 		this.plansRs = plansRs;
 		this.timeDuration = timeDuration;
 		UptoPots = uptoPots;
-		this.packs = packs;
-		VisitsMonths = visitsMonths;
+		this.servicesName = servicesName;
+		this.planType = planType;
+		this.planPacks =planPacks;
+		this.isActive = isActive;
 	}
 	public int getPrimaryKey() {
 		return primaryKey;
 	}
 	public void setPrimaryKey(int primaryKey) {
 		this.primaryKey = primaryKey;
-	}
-	public String getPlansName() {
-		return plansName;
-	}
-	public void setPlansName(String plansName) {
-		this.plansName = plansName;
 	}
 	public String getPlansRs() {
 		return plansRs;
@@ -62,23 +58,36 @@ public class Plans {
 	public void setUptoPots(String uptoPots) {
 		UptoPots = uptoPots;
 	}
-	public String getPacks() {
-		return packs;
+	public String getServicesName() {
+		return servicesName;
 	}
-	public void setPacks(String packs) {
-		this.packs = packs;
+	public void setServicesName(String servicesName) {
+		this.servicesName = servicesName;
 	}
-	public String getVisitsMonths() {
-		return VisitsMonths;
+	public String getPlanType() {
+		return planType;
 	}
-	public void setVisitsMonths(String visitsMonths) {
-		VisitsMonths = visitsMonths;
+	public void setPlanType(String planType) {
+		this.planType = planType;
+	}
+	public String getPlanPacks() {
+		return planPacks;
+	}
+	public void setPlanPacks(String planPacks) {
+		this.planPacks = planPacks;
+	}
+	public String getIsActive() {
+		return isActive;
+	}
+	public void setIsActive(String isActive) {
+		this.isActive = isActive;
 	}
 	@Override
 	public String toString() {
-		return "Plans [primaryKey=" + primaryKey + ", plansName=" + plansName + ", plansRs=" + plansRs
-				+ ", timeDuration=" + timeDuration + ", UptoPots=" + UptoPots + ", packs=" + packs + ", VisitsMonths="
-				+ VisitsMonths + "]";
+		return "Plans [primaryKey=" + primaryKey + ", plansRs=" + plansRs + ", timeDuration=" + timeDuration
+				+ ", UptoPots=" + UptoPots + ", servicesName=" + servicesName + ", planType=" + planType
+				+ ", planPacks=" + planPacks + ", isActive=" + isActive + "]";
 	}
+	
 	
 }
