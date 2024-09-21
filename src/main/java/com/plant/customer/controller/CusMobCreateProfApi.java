@@ -1,6 +1,8 @@
 package com.plant.customer.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.plant.Dao.CustomerDao;
 import com.plant.customer.Service.CustomerService;
 import com.plant.entities.CustomerMain;
+import com.plant.entities.Plans;
+
+
 
 @RestController
 @RequestMapping("/CusMobCreateProfApi")
@@ -20,6 +25,7 @@ public class CusMobCreateProfApi {
 	
 	@Autowired
 	private CustomerService customerService;
+	
 	@Autowired
 	private CustomerDao customerDao;
 
@@ -40,7 +46,20 @@ public class CusMobCreateProfApi {
 			}
 		}
 		CustomerMain saveCustomer = customerService.saveCustomerProfile(customerMain);
+		
+		List<Plans> getPlans = this.customerDao.getallPlans();
+	    List<Plans> activePlans = new ArrayList<>();
+	    for (Plans pl : getPlans) {
+	        if (pl.getIsActive().equals("Yes")) {
+	            activePlans.add(pl);
+	        }
+	    }
+	    
+	    response.put("All Plans", activePlans);
 		response.put("Create Customer Profile", saveCustomer);
 		return new ResponseEntity<>(response, HttpStatus.CREATED);
 	}
+	
+	
+	
 }
