@@ -16,11 +16,12 @@ public class CustomerMain {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int primarykey;
 	
-	public CustomerMain(String firstName, String lastName, String emailId, String mobileNumber , String latitude, String loggitude) {
+	public CustomerMain(String firstName, String lastName, String emailId, String mobileNumber ,String address,  String latitude, String loggitude) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.emailId = emailId;
+		this.address = address;
 		this.mobileNumber = mobileNumber;
 		this.latitude=latitude;
 		this.loggitude=loggitude;
@@ -65,6 +66,7 @@ public class CustomerMain {
 	private String emailId;
 	@Column(unique = true)
 	private String mobileNumber;
+	private String address;
 	private String latitude;
 	private String loggitude;
 
@@ -80,4 +82,11 @@ public class CustomerMain {
 	public void setLoggitude(String loggitude) {
 		this.loggitude = loggitude;
 	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	
 }

@@ -1,5 +1,6 @@
 package com.plant.customer.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ import com.plant.Dao.CustomerDao;
 import com.plant.customer.Service.CusOTPService;
 import com.plant.customer.Service.CusSmsService;
 import com.plant.entities.CustomerMain;
+import com.plant.entities.Plans;
 
 @RestController
 @RequestMapping("/CusMobLoginApi")
@@ -53,7 +55,17 @@ public class CusMobLoginApi {
 	        }
 
 	        boolean isOtpValid = cusOTPService.verifyOtp(mobileNumber, otp);
-
+	        
+	        List<Plans> getPlans = this.customerDao.getallPlans();
+		    List<Plans> activePlans = new ArrayList<>();
+		    for (Plans pl : getPlans) {
+		        if (pl.getIsActive().equals("Yes")) {
+		            activePlans.add(pl);
+		        }
+		    }
+		   
+	        
+	        
 	        if (isOtpValid) {
 	        	if(findMob.isEmpty()) {
 	        		response.put("CustomerExit", "false");
@@ -61,6 +73,7 @@ public class CusMobLoginApi {
 	        	}
 	        	else {
 	        		response.put("Object", findMob);
+	        		response.put("All Plans", activePlans);
 	        		response.put("CustomerExit", "true");
 	        		response.put("message", "OTP Verified Successfully");
 	        	}
