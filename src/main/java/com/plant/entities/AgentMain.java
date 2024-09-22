@@ -45,6 +45,7 @@ public class AgentMain {
 	private String IFSCCode;
 	@Column(unique = true)
 	private String AccMobNumber;
+	private String fcmTokenAgent;
 	private String BankAccPassBookImage;
 	public AgentMain() {
 		super();
@@ -53,7 +54,7 @@ public class AgentMain {
 	public AgentMain(int agentIDPk, String firstName, String lastName,String selfiImage, String emailId, String mobileNumber, boolean AgentVerified, boolean isActiveAgent,
 			String state, String city, String address, String pincode, String latitude, String longitude,
 			String aadharImg, String aadhaarNumber, String accHolderName, String accNumber, String bankName,
-			String iFSCCode, String accMobNumber ,String BankAccPassBookImage) {
+			String iFSCCode, String accMobNumber ,String BankAccPassBookImage , String fcmTokenAgent) {
 		super();
 		AgentIDPk = agentIDPk;
 		this.firstName = firstName;
@@ -74,9 +75,10 @@ public class AgentMain {
 		this.accHolderName = accHolderName;
 		this.accNumber = accNumber;
 		this.bankName = bankName;
-		IFSCCode = iFSCCode;
-		AccMobNumber = accMobNumber;
+		this.IFSCCode = iFSCCode;
+		this.AccMobNumber = accMobNumber;
 		this.BankAccPassBookImage= BankAccPassBookImage;
+		this.fcmTokenAgent= fcmTokenAgent;
 	}
 	public int getAgentIDPk() {
 		return AgentIDPk;
@@ -209,6 +211,13 @@ public class AgentMain {
 	}
 	public void setBankAccPassBookImage(String bankAccPassBookImage) {
 		BankAccPassBookImage = bankAccPassBookImage;
+	}
+	
+	public String getFcmTokenAgent() {
+		return fcmTokenAgent;
+	}
+	public void setFcmTokenAgent(String fcmTokenAgent) {
+		this.fcmTokenAgent = fcmTokenAgent;
 	}
 	@Override
 	public String toString() {
