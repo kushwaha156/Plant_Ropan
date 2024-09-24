@@ -31,8 +31,8 @@ public class AgentMain {
 	private String city;
 	private String address;
 	private String pincode;
-	private String latitude;
-	private String longitude;
+	private double latitude;
+	private double longitude;
 	
 	private String aadharImg;
 	@Column(unique = true)
@@ -52,7 +52,7 @@ public class AgentMain {
 		// TODO Auto-generated constructor stub
 	}
 	public AgentMain(int agentIDPk, String firstName, String lastName,String selfiImage, String emailId, String mobileNumber, boolean AgentVerified, boolean isActiveAgent,
-			String state, String city, String address, String pincode, String latitude, String longitude,
+			String state, String city, String address, String pincode, double latitude, double longitude,
 			String aadharImg, String aadhaarNumber, String accHolderName, String accNumber, String bankName,
 			String iFSCCode, String accMobNumber ,String BankAccPassBookImage , String fcmTokenAgent) {
 		super();
@@ -152,16 +152,16 @@ public class AgentMain {
 	public void setPincode(String pincode) {
 		this.pincode = pincode;
 	}
-	public String getLatitude() {
+	public double getLatitude() {
 		return latitude;
 	}
-	public void setLatitude(String latitude) {
+	public void setLatitude(double latitude) {
 		this.latitude = latitude;
 	}
-	public String getLongitude() {
+	public double getLongitude() {
 		return longitude;
 	}
-	public void setLongitude(String longitude) {
+	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
 	public String getAadharImg() {

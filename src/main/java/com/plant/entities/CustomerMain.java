@@ -16,7 +16,7 @@ public class CustomerMain {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int primarykey;
 	
-	public CustomerMain(String firstName, String lastName, String emailId, String mobileNumber ,String address,  String latitude, String loggitude) {
+	public CustomerMain(String firstName, String lastName, String emailId, String mobileNumber ,String address,  double latitude, double loggitude) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -67,19 +67,19 @@ public class CustomerMain {
 	@Column(unique = true)
 	private String mobileNumber;
 	private String address;
-	private String latitude;
-	private String loggitude;
+	private double latitude;
+	private double loggitude;
 
-	public String getLatitude() {
+	public double getLatitude() {
 		return latitude;
 	}
-	public void setLatitude(String latitude) {
+	public void setLatitude(double latitude) {
 		this.latitude = latitude;
 	}
-	public String getLoggitude() {
+	public double getLoggitude() {
 		return loggitude;
 	}
-	public void setLoggitude(String loggitude) {
+	public void setLoggitude(double loggitude) {
 		this.loggitude = loggitude;
 	}
 	public String getAddress() {
