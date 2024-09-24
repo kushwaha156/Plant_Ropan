@@ -256,19 +256,51 @@ public class MobileLoginApiCont {
 		}
 		
 		@PostMapping("/getliveLocationLatiAndLong")
-		public ResponseEntity<String> getliveLocationLatiAndLong(@RequestBody Map<String, String> request) {
+		public ResponseEntity<Map<String, String>> getliveLocationLatiAndLong(@RequestBody Map<String, String> request) {
 			 Map<String, String> response = new HashMap<>();
 			 String AgentIDPk = request.get("AgentIDPk");
 			 String Agentlatitude = request.get("Agentlatitude");
 			 String AgentLongtitude = request.get("AgentLongtitude");
 			
-			 System.out.println("---AgentIDPk--- " + AgentIDPk);
-			 System.out.println("---Agentlatitude--- " + Agentlatitude);
-			 System.out.println("---AgentLongtitude--- " + AgentLongtitude);
-			 this.userdao.updateliveLocation(Agentlatitude,AgentLongtitude, AgentIDPk);
+			 AgentMain getActiveRecord = this.userdao.findAgentID(AgentIDPk);
 			 
-			 response.put("agentID",AgentIDPk );
-			 response.put("message", "Bank Account Addedd successfully");
-			 return ResponseEntity.ok("OK");
+			 if(getActiveRecord != null) {
+				 if(getActiveRecord.isActiveAgent() == true ) {
+					 System.out.println("---AgentIDPk--- " + AgentIDPk);
+					 System.out.println("---Agentlatitude--- " + Agentlatitude);
+					 System.out.println("---AgentLongtitude--- " + AgentLongtitude);
+					 this.userdao.updateliveLocation(Agentlatitude,AgentLongtitude, AgentIDPk);
+					 response.put("message", "Location Updated.");
+				}else {
+					 response.put("message", "Agent is Not Active");
+				}
+				 
+			 }else {
+				 response.put("message", "No Record Found Agent");
+			 }
+			
+			
+			 return ResponseEntity.ok(response);
+		}
+		
+		@PostMapping("/getActiveAgentToggle")
+		public ResponseEntity<Map<String, String>> getActiveAgentToggle(@RequestBody Map<String, String> request) {
+			 Map<String, String> response = new HashMap<>();
+			 String AgentIDPk = request.get("AgentIDPk");
+			 boolean isActiveAgent = request.get("isActiveAgent") != null;
+			
+			 AgentMain getagentRecord = this.userdao.findAgentID(AgentIDPk);
+			 
+			 if(getagentRecord != null) {
+				 System.out.println("---AgentIDPk--- " + AgentIDPk);
+			     System.out.println("---isActiveAgent--- " + isActiveAgent);
+			     
+			     this.userdao.UpdateagentActive(isActiveAgent, getagentRecord.getAgentIDPk());
+				 response.put("message", "Agent Active.");
+			 }else {
+				 response.put("message", "No Record Found Agent");
+			 }
+		    	
+			 return ResponseEntity.ok(response);
 		}
 }
