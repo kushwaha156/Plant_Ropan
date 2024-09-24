@@ -41,6 +41,13 @@ public interface userDao extends CrudRepository<user, Integer>{
     public void updateAddress(@Param("state") String state ,@Param("city") String city ,@Param("address") String address ,@Param("pincode") String pincode ,@Param("latitude") String latitude ,@Param("longitude") String longitude , @Param("AgentIDPk") String AgentIDPk);
 	
 	
+	
+	@Modifying
+	@Transactional
+    @Query("UPDATE AgentMain a SET  a.latitude = :latitude,a.longitude = :longitude  WHERE a.AgentIDPk = :AgentIDPk")
+    public void updateliveLocation(@Param("latitude") String latitude ,@Param("longitude") String longitude , @Param("AgentIDPk") String AgentIDPk);
+	
+	
 	@Modifying
 	@Transactional
     @Query("UPDATE AgentMain a SET a.aadharImg = :aadharImg , a.aadhaarNumber =:aadhaarNumber WHERE a.AgentIDPk = :AgentIDPk")
@@ -63,4 +70,7 @@ public interface userDao extends CrudRepository<user, Integer>{
 	
 	@Query("select e FROM AgentMain e where e.AgentVerified = true")
 	public ArrayList<AgentMain> getVerified();
+	
+	@Query("select e FROM AgentMain e where e.isActiveAgent = true")
+	public ArrayList<AgentMain> activeAgent();
 }
