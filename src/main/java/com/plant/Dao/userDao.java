@@ -50,6 +50,12 @@ public interface userDao extends CrudRepository<user, Integer>{
 	
 	@Modifying
 	@Transactional
+    @Query("UPDATE AgentMain a SET  a.isActiveAgent = :isActiveAgent  WHERE a.AgentIDPk = :AgentIDPk")
+    public void UpdateagentActive(@Param("isActiveAgent") boolean isActiveAgent , @Param("AgentIDPk") int AgentIDPk);
+	
+	
+	@Modifying
+	@Transactional
     @Query("UPDATE AgentMain a SET a.aadharImg = :aadharImg , a.aadhaarNumber =:aadhaarNumber WHERE a.AgentIDPk = :AgentIDPk")
     public void updateaddharImage(@Param("aadharImg") String aadharImg,@Param("aadhaarNumber") String aadhaarNumber , @Param("AgentIDPk") String AgentIDPk);
 	
