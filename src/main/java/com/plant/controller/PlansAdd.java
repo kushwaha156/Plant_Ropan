@@ -11,14 +11,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.plant.Dao.CustomerDao;
 import com.plant.Dao.userDao;
 import com.plant.entities.AgentMain;
 import com.plant.entities.Plans;
 
-@Controller
+@RestController
+@RequestMapping("/ShowPlans")
 public class PlansAdd {
 	
 	 @Autowired
@@ -42,7 +45,7 @@ public class PlansAdd {
 	 }
 	
 	 
-	 @GetMapping("/getPlans")
+	   @GetMapping("/getPlans")
 		public ResponseEntity<HashMap<String, Object>> getAllPlans() {
 		    HashMap<String, Object> response = new HashMap<>();
 		    List<Plans> getPlans = this.customerDao.getallPlans();
