@@ -23,7 +23,7 @@ app.controller('planManageController', ['$scope', '$http', function($scope, $htt
   
         $http({
             method: 'POST',
-            url: 'addPlans',
+            url: '/ShowPlans/addPlans',
             data: formData,
             headers: { 'Content-Type': undefined  }, 
             transformRequest: angular.identity 
@@ -57,7 +57,7 @@ app.controller('planManageController', ['$scope', '$http', function($scope, $htt
     $scope.DailyRecordFetch = function() {
 		$http({
 			method: 'GET',
-			url: '/dailyRecordFetch'
+			url: '/ShowPlans/dailyRecordFetch'
 		}).then(function(response) {
 			$scope.DailyRecord = response.data; // Assign response data to scope variable
 		}, function(error) {
@@ -68,7 +68,7 @@ app.controller('planManageController', ['$scope', '$http', function($scope, $htt
     $scope.MonthlyRecordFetch = function() {
 		$http({
 			method: 'GET',
-			url: '/monthWiseRecordFetch'
+			url: '/ShowPlans/monthWiseRecordFetch'
 		}).then(function(response) {
 			$scope.MontheRecord = response.data; // Assign response data to scope variable
 		}, function(error) {
