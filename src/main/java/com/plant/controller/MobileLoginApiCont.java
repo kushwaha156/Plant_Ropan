@@ -129,49 +129,55 @@ public class MobileLoginApiCont {
 		    return ResponseEntity.ok(response);
 		}
 		
-		@PostMapping("/getselfiImage")
-		public ResponseEntity<Map<String, String>> getselfiImage(@RequestParam("selfiImage") MultipartFile file, @RequestParam("agentID") String agentID) {
-		    Map<String, String> response = new HashMap<>();
+	 @PostMapping("/getselfiImage")
+	 public ResponseEntity<Map<String, String>> getselfiImage(@RequestParam("selfiImage") MultipartFile file, @RequestParam("agentID") String agentID) {
+	     Map<String, String> response = new HashMap<>();
 
-		    if (file.isEmpty()) {
-		        response.put("message", "Please select your selfie image.");
-		        return ResponseEntity.badRequest().body(response);
-		    }
+	     if (file.isEmpty()) {
+	         response.put("message", "Please select your selfie image.");
+	         return ResponseEntity.badRequest().body(response);
+	     }
 
-		    try {
-		    	
-		    	 String externalDirectory = "uploads/selfies";  // Create this folder if not already present
-		         File directory = new File(externalDirectory);
-		         
-		         // Create the directory if it does not exist
-		         if (!directory.exists()) {
-		             directory.mkdirs();
-		         }
+	     try {
+	         // Specify the external directory to save the uploaded file
+	         String externalDirectory = "src/main/resources/static/uploadImages";
+	         File directory = new File(externalDirectory);
+	         
+	         // Create the directory if it does not exist
+	         if (!directory.exists()) {
+	             directory.mkdirs();
+	         }
 
-		    	
-		       // final String UPLOAD_DIR = new ClassPathResource("static/images/").getFile().getAbsolutePath();
-		      //  Path filePath = Paths.get(UPLOAD_DIR, file.getOriginalFilename());
-		         Path filePath = Paths.get(externalDirectory, file.getOriginalFilename());
+	         // Save the file in the specified external directory
+	         Path filePath = Paths.get(externalDirectory, file.getOriginalFilename());
+	         Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+	         file.getInputStream().close();
 
-		        Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-		        file.getInputStream().close();
-		        String imageUrl = ServletUriComponentsBuilder.fromCurrentContextPath().path("/images/").path(file.getOriginalFilename()).toUriString();
-		       
-		        this.userdao.updateSelfiImage(file.getOriginalFilename(), agentID);
-		       
-		        response.put("agentID", agentID);
-		        response.put("message", "Image uploaded successfully.");
-		        response.put("imageUrl", imageUrl);
-		        
-		    } catch (IOException e) {
-		        e.printStackTrace();
-		        response.put("message", "Something went wrong while uploading the image.");
-		        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
-		    }
+	         // Manually construct the image URL using the correct path
+	         String imageUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
+	                             .path("/uploadImages/")
+	                             .path(file.getOriginalFilename())
+	                             .toUriString();
 
-		    return ResponseEntity.ok(response);
-		}
+	         // Debug log to verify the generated image URL
+	         System.out.println("imageUrl -------" + imageUrl );
 
+	         // Update the database record with the image name or URL (optional)
+	         this.userdao.updateSelfiImage(file.getOriginalFilename(), agentID);
+
+	         // Prepare the response
+	         response.put("agentID", agentID);
+	         response.put("message", "Image uploaded successfully.");
+	         response.put("imageUrl", imageUrl);
+
+	     } catch (IOException e) {
+	         e.printStackTrace();
+	         response.put("message", "Something went wrong while uploading the image.");
+	         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+	     }
+
+	     return ResponseEntity.ok(response);
+	 }
 		@PostMapping("/getaddressDetail")
 		public ResponseEntity<Map<String, String>> getaddressDetail(@RequestBody Map<String, String> request) {
 			 Map<String, String> response = new HashMap<>();
@@ -199,11 +205,22 @@ public class MobileLoginApiCont {
 		    }
 
 		    try {
-		        final String UPLOAD_DIR = new ClassPathResource("static/images/").getFile().getAbsolutePath();
-		        Path filePath = Paths.get(UPLOAD_DIR, file.getOriginalFilename());
+		    	String externalDirectory = "src/main/resources/static/uploadImages";
+		         File directory = new File(externalDirectory);
+		         
+		         // Create the directory if it does not exist
+		         if (!directory.exists()) {
+		             directory.mkdirs();
+		         }
+
+		         // Save the file in the specified external directory
+		         Path filePath = Paths.get(externalDirectory, file.getOriginalFilename());
 		        Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 		        file.getInputStream().close();
-		        String imageUrl = ServletUriComponentsBuilder.fromCurrentContextPath().path("/images/").path(file.getOriginalFilename()).toUriString();
+		        String imageUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
+                        .path("/uploadImages/")
+                        .path(file.getOriginalFilename())
+                        .toUriString();
 		       
 		        this.userdao.updateaddharImage(file.getOriginalFilename(), aadhaarNumber, agentID);
 		       
@@ -245,12 +262,23 @@ public class MobileLoginApiCont {
 		        return ResponseEntity.badRequest().body(response);
 		    }
 		    try {
-		        final String UPLOAD_DIR = new ClassPathResource("static/images/").getFile().getAbsolutePath();
-		        Path filePath = Paths.get(UPLOAD_DIR, file.getOriginalFilename());
+		    	String externalDirectory = "src/main/resources/static/uploadImages";
+		         File directory = new File(externalDirectory);
+		         
+		         // Create the directory if it does not exist
+		         if (!directory.exists()) {
+		             directory.mkdirs();
+		         }
+
+		         // Save the file in the specified external directory
+		         Path filePath = Paths.get(externalDirectory, file.getOriginalFilename());
 		        Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 		        file.getInputStream().close();
 
-		        String imageUrl = ServletUriComponentsBuilder.fromCurrentContextPath().path("/images/").path(file.getOriginalFilename()).toUriString();
+		        String imageUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
+                        .path("/uploadImages/")
+                        .path(file.getOriginalFilename())
+                        .toUriString();
 
 		        this.userdao.updateBankPassBookImg(file.getOriginalFilename(), agentID);
 
