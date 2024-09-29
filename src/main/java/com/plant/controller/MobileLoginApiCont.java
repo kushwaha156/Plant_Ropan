@@ -2,6 +2,7 @@ package com.plant.controller;
 
 import java.awt.Image;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,6 +30,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.core.io.Resource;
 
 import com.plant.Dao.MobileApiDao;
 import com.plant.Dao.userDao;
@@ -137,8 +139,20 @@ public class MobileLoginApiCont {
 		    }
 
 		    try {
-		        final String UPLOAD_DIR = new ClassPathResource("static/images/").getFile().getAbsolutePath();
-		        Path filePath = Paths.get(UPLOAD_DIR, file.getOriginalFilename());
+		    	
+		    	 String externalDirectory = "uploads/selfies";  // Create this folder if not already present
+		         File directory = new File(externalDirectory);
+		         
+		         // Create the directory if it does not exist
+		         if (!directory.exists()) {
+		             directory.mkdirs();
+		         }
+
+		    	
+		       // final String UPLOAD_DIR = new ClassPathResource("static/images/").getFile().getAbsolutePath();
+		      //  Path filePath = Paths.get(UPLOAD_DIR, file.getOriginalFilename());
+		         Path filePath = Paths.get(externalDirectory, file.getOriginalFilename());
+
 		        Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 		        file.getInputStream().close();
 		        String imageUrl = ServletUriComponentsBuilder.fromCurrentContextPath().path("/images/").path(file.getOriginalFilename()).toUriString();
@@ -278,7 +292,6 @@ public class MobileLoginApiCont {
 			 }else {
 				 response.put("message", "No Record Found Agent");
 			 }
-			
 			
 			 return ResponseEntity.ok(response);
 		}
