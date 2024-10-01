@@ -227,7 +227,8 @@ public class AgentMain {
 				+ ", city=" + city + ", address=" + address + ", pincode=" + pincode + ", latitude=" + latitude
 				+ ", longitude=" + longitude + ", aadharImg=" + aadharImg + ", aadhaarNumber=" + aadhaarNumber
 				+ ", accHolderName=" + accHolderName + ", accNumber=" + accNumber + ", bankName=" + bankName
-				+ ", IFSCCode=" + IFSCCode + ", AccMobNumber=" + AccMobNumber + ", BankAccPassBookImage="
-				+ BankAccPassBookImage + "]";
+				+ ", IFSCCode=" + IFSCCode + ", AccMobNumber=" + AccMobNumber + ", fcmTokenAgent=" + fcmTokenAgent
+				+ ", BankAccPassBookImage=" + BankAccPassBookImage + "]";
 	}
+	
 }

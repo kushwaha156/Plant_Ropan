@@ -107,6 +107,7 @@ public class MobileLoginApiCont {
 	 @PostMapping("/getPersonalDetailProfileAgent")
 		public ResponseEntity<Map<String, String>> getPersonalDetailProfileAgent(@RequestBody AgentMain agentMain) {
 		    Map<String, String> response = new HashMap<>();
+		    System.out.println(" agent ---- " + agentMain.toString());
 		    
 		    AgentMain findEmailAndMobile = this.userdao.findEmailAndMobileAg(agentMain.getEmailId(), agentMain.getMobileNumber());
 		    if(findEmailAndMobile != null) {
